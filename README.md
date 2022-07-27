@@ -7,6 +7,10 @@
 ## Hexlet tests and linter status:
 [![Actions Status](https://github.com/rinat-lucky/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/rinat-lucky/frontend-project-lvl2/actions)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/323700e9c1e0f5b11fdb/maintainability)](https://codeclimate.com/github/rinat-lucky/frontend-project-lvl2/maintainability)
+
+[![NODE CI](https://github.com/rinat-lucky/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/rinat-lucky/frontend-project-lvl2/actions)
+
 ## Installation
 
 To install "genDiff.js" locally:
