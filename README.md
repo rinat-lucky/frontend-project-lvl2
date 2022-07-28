@@ -9,6 +9,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/323700e9c1e0f5b11fdb/maintainability)](https://codeclimate.com/github/rinat-lucky/frontend-project-lvl2/maintainability)
 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/323700e9c1e0f5b11fdb/test_coverage)](https://codeclimate.com/github/rinat-lucky/frontend-project-lvl2/test_coverage)
+
 [![NODE CI](https://github.com/rinat-lucky/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/rinat-lucky/frontend-project-lvl2/actions)
 
 ## Installation
