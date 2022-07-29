@@ -15,7 +15,7 @@ const isJSON = (filepath) => {
   return filepathArr[filepathArr.length - 1].toLowerCase() === 'json';
 };
 
-const readAndParse = (filepath) => JSON.parse(readFileSync(path.resolve(`${cwd}`, `${filepath}`), 'utf-8'));
+const readAndParse = (filepath) => JSON.parse(readFileSync(path.resolve(`${cwd}`, `${filepath}`), 'utf-8').trim());
 
 const genDiff = (filepath1, filepath2) => {
   const obj1 = isJSON(filepath1) ? readAndParse(filepath1) : 'another type';
