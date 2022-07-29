@@ -8,12 +8,13 @@ const isJSON = (filepath) => {
   const filepathArr = filepath.split('.');
   return filepathArr[filepathArr.length - 1].toLowerCase() === 'json';
 };
-
-const readAndParse = (filepath) => JSON.parse(readFileSync(path.resolve(`${cwd}`, `${filepath}`), 'utf-8').trim());
+const getFixturePath = (filepath) => path.resolve(`${cwd}`, filepath);
+const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8');
+const parseJSON = (filepath) => JSON.parse(readFile(filepath));
 
 const genDiff = (filepath1, filepath2) => {
-  const obj1 = isJSON(filepath1) ? readAndParse(filepath1) : 'another type';
-  const obj2 = isJSON(filepath2) ? readAndParse(filepath2) : 'another type';
+  const obj1 = isJSON(filepath1) ? parseJSON(filepath1) : 'another type';
+  const obj2 = isJSON(filepath2) ? parseJSON(filepath2) : 'another type';
 
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
