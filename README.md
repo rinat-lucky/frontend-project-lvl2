@@ -23,7 +23,7 @@ cd frontend-project-lvl2
 make install
 ```
 
-## Asciinema's:
+## Asciinema's
  
 genDiff.js
 [![asciicast](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4.png)](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4)
