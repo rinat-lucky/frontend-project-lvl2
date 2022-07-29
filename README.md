@@ -25,5 +25,8 @@ make install
 
 ## Asciinema's
  
-genDiff.js
+genDiff.js (comparison JSON files)
 [![asciicast](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4.png)](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4)
+
+genDiff.js (comparison JSON & YAML files)
+[![asciicast](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedT.png)](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedTi)

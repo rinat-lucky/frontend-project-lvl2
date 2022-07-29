@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "commander": "^9.4.0",
+    "js-yaml": "^4.1.0",
     "lodash.sortby": "^4.7.0",
     "uniq": "^1.0.1"
   },
