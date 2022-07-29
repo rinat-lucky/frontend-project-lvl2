@@ -13,8 +13,6 @@
 
 [![NODE CI](https://github.com/rinat-lucky/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/rinat-lucky/frontend-project-lvl2/actions)
 
-[![Build Status](https://app.travis-ci.com/rinat-lucky/frontend-project-lvl2.svg?branch=main)](https://app.travis-ci.com/rinat-lucky/frontend-project-lvl2)
-
 ## Installation
 
 To install "genDiff.js" locally:
