@@ -28,5 +28,3 @@ export default (filepath1, filepath2) => {
 
   return `{\n${resultArr.join('\n')}\n}`;
 };
-// gendiff ../__fixtures__/file1.json ../__fixtures__/file2.json
-// gendiff ../__fixtures__/file3.yml ../__fixtures__/file4.yml
