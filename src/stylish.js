@@ -1,4 +1,3 @@
-
 import isObject from 'lodash.isobject';
 
 export default (value, replacer = ' ', spaceCount = 1) => {

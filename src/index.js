@@ -32,8 +32,6 @@ import parser from './parsers.js';
 //   console.log(resultArr);
 // };
 
-
-
 export default (filepath1, filepath2) => {
   const obj1 = parser(filepath1);
   const obj2 = parser(filepath2);
