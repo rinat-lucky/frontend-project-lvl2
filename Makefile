@@ -25,5 +25,5 @@ gen-yml:
 gen-json:
 	gendiff ../__fixtures__/file1.json ../__fixtures__/file2.json
 
-gen-tree-json:
+tree:
 	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json

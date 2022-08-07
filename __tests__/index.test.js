@@ -8,14 +8,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8');
-const actual1 = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
-const actual2 = genDiff(getFixturePath('file3.yml'), getFixturePath('file4.yml'));
-const expected = readFile('result.txt').trim();
+const actualPlainJson = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
+const actualPlainYaml = genDiff(getFixturePath('file3.yml'), getFixturePath('file4.yml'));
+const expectedPlain = readFile('result_plain.txt').trim();
 
-test('genDiff-json', () => {
-  expect(actual1).toBe(expected);
+const actualNestedJson = genDiff(getFixturePath('file5.json'), getFixturePath('file6.json'));
+const actualNestedYaml = genDiff(getFixturePath('file7.yml'), getFixturePath('file8.yml'));
+const expectedNested = readFile('result_nested.txt').trim();
+
+test('genDiff-plain-json', () => {
+  expect(actualPlainJson).toBe(expectedPlain);
 });
 
-test('genDiff-yaml', () => {
-  expect(actual2).toBe(expected);
+test('genDiff-plain-yaml', () => {
+  expect(actualPlainYaml).toBe(expectedPlain);
+});
+
+test('genDiff-nested-json', () => {
+  expect(actualNestedJson).toBe(expectedNested);
+});
+
+test('genDiff-nested-yaml', () => {
+  expect(actualNestedYaml).toBe(expectedNested);
 });

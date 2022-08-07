@@ -20,8 +20,8 @@
     baz: bars,
     nest: str
   },
-  group3": {
-    deep": {
+  group3: {
+    deep: {
       id: {
         number: 45
       }

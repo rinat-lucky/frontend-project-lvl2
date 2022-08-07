@@ -1,17 +1,32 @@
 import isObject from 'lodash.isobject';
 
-export default (value, replacer = ' ', spaceCount = 1) => {
+const getReplacer = (value) => {
+  switch (value) {
+    case 'minus':
+      return '  - ';
+    case 'plus':
+      return '  + ';
+    default:
+      return '    ';
+  }
+};
+
+export default (value, spaceCount = 1) => {
   const iter = (depth, currentValue) => {
     if (!isObject(currentValue)) {
       return `${currentValue}`;
     }
-
-    const space = replacer.repeat(spaceCount * depth);
-    const spaceEnd = replacer.repeat(spaceCount * (depth - 1));
+    const spaceEnd = getReplacer().repeat(spaceCount * (depth - 1));
 
     const lines = Object
-      .entries(currentValue)
-      .map(([key, val]) => `${space}${key}: ${iter(depth + 1, val)}`);
+      .values(currentValue)
+      .map((val) => {
+        if (val === null) {
+          return val;
+        }
+        const space = getReplacer(val.type).repeat(spaceCount * depth);
+        return `${space}${val.key}: ${iter(depth + 1, val.value)}`;
+      });
 
     return [
       '{',
