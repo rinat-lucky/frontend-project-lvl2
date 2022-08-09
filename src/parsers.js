@@ -1,18 +1,12 @@
-import { readFileSync } from 'fs';
-import { cwd } from 'process';
-import path from 'path';
 import yaml from 'js-yaml';
 
-const readFile = (filepath) => readFileSync(path.resolve(`${cwd}`, filepath), 'utf-8');
-
-export default (filepath) => {
-  const format = path.extname(filepath);
-  switch (format) {
+export default (file, extension) => {
+  switch (extension) {
     case '.json':
-      return JSON.parse(readFile(filepath));
+      return JSON.parse(file);
     case '.yml':
     case '.yaml':
-      return yaml.load(readFile(filepath));
+      return yaml.load(file);
     default:
       return 'Unknown format!';
   }

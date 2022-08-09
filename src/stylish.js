@@ -2,24 +2,24 @@ import isObject from 'lodash.isobject';
 
 const getReplacer = (value) => {
   switch (value) {
-    case 'minus':
+    case 'deleted':
       return '  - ';
-    case 'plus':
+    case 'added':
       return '  + ';
     default:
       return '    ';
   }
 };
 
-export default (value, spaceCount = 1) => {
-  const iter = (depth, currentValue) => {
-    if (!isObject(currentValue)) {
-      return `${currentValue}`;
+export default (tree, spaceCount = 1) => {
+  const iter = (depth, node) => {
+    if (!isObject(node)) {
+      return `${node}`;
     }
     const spaceEnd = getReplacer().repeat(spaceCount * (depth - 1));
 
     const lines = Object
-      .values(currentValue)
+      .values(node)
       .map((val) => {
         if (val === null) {
           return val;
@@ -35,5 +35,5 @@ export default (value, spaceCount = 1) => {
     ].join('\n');
   };
 
-  return iter(1, value);
+  return iter(1, tree);
 };
