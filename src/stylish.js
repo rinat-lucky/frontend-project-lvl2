@@ -1,13 +1,24 @@
 import isObject from 'lodash.isobject';
 
-const getReplacer = (value) => {
+const stepIndent = 4;
+
+const getReplacer = (count, value = '') => {
+  const space = ' ';
+  const currentIndent = space.repeat(count * stepIndent);
+  const currentIndentArr = currentIndent.split('');
+
+  const func = (symbol) => {
+    currentIndentArr.splice(currentIndentArr.length - 2, 1, symbol);
+    return currentIndentArr.join('');
+  };
+
   switch (value) {
     case 'deleted':
-      return '  - ';
+      return func('-');
     case 'added':
-      return '  + ';
+      return func('+');
     default:
-      return '    ';
+      return currentIndentArr.join('');
   }
 };
 
@@ -16,22 +27,28 @@ export default (tree, spaceCount = 1) => {
     if (!isObject(node)) {
       return `${node}`;
     }
-    const spaceEnd = getReplacer().repeat(spaceCount * (depth - 1));
+    const bracketEnd = getReplacer(spaceCount * (depth - 1));
 
     const lines = Object
-      .values(node)
-      .map((val) => {
-        if (val === null) {
-          return val;
+      .entries(node)
+      .map(([nestedKey, diff]) => {
+        const {
+          key, value, type, children,
+        } = diff;
+        const indent = getReplacer(spaceCount * depth, type);
+        if (children) {
+          return `${indent}${key}: ${iter(depth + 1, children)}`;
         }
-        const space = getReplacer(val.type).repeat(spaceCount * depth);
-        return `${space}${val.key}: ${iter(depth + 1, val.value)}`;
+        if (type) {
+          return `${indent}${key}: ${iter(depth + 1, value)}`;
+        }
+        return `${indent}${nestedKey}: ${iter(depth + 1, (diff))}`;
       });
 
     return [
       '{',
       ...lines,
-      `${spaceEnd}}`,
+      `${bracketEnd}}`,
     ].join('\n');
   };
 

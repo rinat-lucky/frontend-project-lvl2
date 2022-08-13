@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { readFileSync } from 'fs';
 import { cwd } from 'process';
 import path from 'path';
