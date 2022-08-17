@@ -23,7 +23,10 @@ yml:
 	gendiff ../__fixtures__/file7.yml ../__fixtures__/file8.yml
 
 t:
-	gendiff ../__fixtures__/file1.json ../__fixtures__/file2.json
+	gendiff ../__fixtures__/file1.json ../__fixtures__/file2.json -f stylish
 
-json:
-	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json
+pl:
+	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json -f plain
+
+st:
+	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json -f stylish

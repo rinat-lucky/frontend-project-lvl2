@@ -14,6 +14,7 @@ const getReplacer = (count, value = '') => {
 
   switch (value) {
     case 'deleted':
+    case 'changed':
       return func('-');
     case 'added':
       return func('+');
@@ -33,14 +34,17 @@ export default (tree, spaceCount = 1) => {
       .entries(node)
       .map(([nestedKey, diff]) => {
         const {
-          key, value, type, children,
+          key, value, newValue, type, children,
         } = diff;
         const indent = getReplacer(spaceCount * depth, type);
-        if (children) {
+        if (type === 'nested') {
           return `${indent}${key}: ${iter(depth + 1, children)}`;
         }
-        if (type) {
+        if (type === 'added' || type === 'deleted' || type === 'unchanged') {
           return `${indent}${key}: ${iter(depth + 1, value)}`;
+        }
+        if (type === 'changed') {
+          return `${indent}${key}: ${iter(depth + 1, value)}\n${getReplacer(spaceCount * depth, 'added')}${key}: ${iter(depth + 1, newValue)}`;
         }
         return `${indent}${nestedKey}: ${iter(depth + 1, (diff))}`;
       });

@@ -18,8 +18,9 @@ const buildDiff = (data1, data2) => {
       return { key, value: data1[key], type: 'deleted' };
     }
     if (data1[key] !== data2[key]) {
-      return [{ key, value: data1[key], type: 'deleted' },
-        { key, value: data2[key], type: 'added' }];
+      return {
+        key, value: data1[key], newValue: data2[key], type: 'changed',
+      };
     }
     return { key, value: data1[key], type: 'unchanged' };
   });
