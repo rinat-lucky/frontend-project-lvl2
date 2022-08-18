@@ -28,8 +28,11 @@ make install
 genDiff.js (comparison JSON files)
 [![asciicast](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4.png)](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4)
 
-genDiff.js (comparison JSON & YAML plain files)
+genDiff.js (comparison JSON & YAML plain files in 'stylish')
 [![asciicast](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedTi.png)](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedTi)
 
-genDiff.js (comparison JSON & YAML nested files)
+genDiff.js (comparison JSON & YAML nested files in 'stylish')
 [![asciicast](https://asciinema.org/a/0RPiGuJc3Q0GD21XWRo0LMu7C.png)](https://asciinema.org/a/0RPiGuJc3Q0GD21XWRo0LMu7C)
+
+genDiff.js (comparison JSON & YAML nested files in 'plain')
+[![asciicast](https://asciinema.org/a/yAOQNJQW4nkBqwNxwaA7Pkf3t.png)](https://asciinema.org/a/yAOQNJQW4nkBqwNxwaA7Pkf3t)

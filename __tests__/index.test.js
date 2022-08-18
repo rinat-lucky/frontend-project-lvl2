@@ -19,14 +19,16 @@ const actualNestedYML = genDiff(getFixturePath('file7.yml'), getFixturePath('fil
 const expectedNestedYML = readFile('result_nested_yml.txt').trim();
 
 const actualNestedJSONTExt = genDiff(getFixturePath('file5.json'), getFixturePath('file6.json'), 'plain');
-const actualNestedYMLText = genDiff(getFixturePath('file7.yml'), getFixturePath('file8.yml'), 'plain');
-const expectedNestedText = readFile('result_text.txt').trim();
+const expectedNestedJSONText = readFile('result_text_JSON.txt').trim();
 
-test('genDiff-plain-json-stylish', () => {
+const actualNestedYMLText = genDiff(getFixturePath('file7.yml'), getFixturePath('file8.yml'), 'plain');
+const expectedNestedYMLText = readFile('result_text_YML.txt').trim();
+
+test('genDiff-json-stylish', () => {
   expect(actualPlainJson).toBe(expectedPlain);
 });
 
-test('genDiff-plain-yaml-stylish', () => {
+test('genDiff-yaml-stylish', () => {
   expect(actualPlainYaml).toBe(expectedPlain);
 });
 
@@ -39,9 +41,9 @@ test('genDiff-nested-yaml-stylish', () => {
 });
 
 test('genDiff-nested-json-plain', () => {
-  expect(actualNestedJSONTExt).toBe(expectedNestedText);
+  expect(actualNestedJSONTExt).toBe(expectedNestedJSONText);
 });
 
 test('genDiff-nested-yaml-plain', () => {
-  expect(actualNestedYMLText).toBe(expectedNestedText);
+  expect(actualNestedYMLText).toBe(expectedNestedYMLText);
 });

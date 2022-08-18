@@ -32,21 +32,24 @@ export default (tree, spaceCount = 1) => {
 
     const lines = Object
       .entries(node)
-      .map(([nestedKey, diff]) => {
+      .map(([prop, diff]) => {
         const {
           key, value, newValue, type, children,
         } = diff;
         const indent = getReplacer(spaceCount * depth, type);
-        if (type === 'nested') {
-          return `${indent}${key}: ${iter(depth + 1, children)}`;
+
+        switch (type) {
+          case 'nested':
+            return `${indent}${key}: ${iter(depth + 1, children)}`;
+          case 'added':
+          case 'deleted':
+          case 'unchanged':
+            return `${indent}${key}: ${iter(depth + 1, value)}`;
+          case 'changed':
+            return `${indent}${key}: ${iter(depth + 1, value)}\n${getReplacer(spaceCount * depth, 'added')}${key}: ${iter(depth + 1, newValue)}`;
+          default:
+            return `${indent}${prop}: ${iter(depth + 1, (diff))}`;
         }
-        if (type === 'added' || type === 'deleted' || type === 'unchanged') {
-          return `${indent}${key}: ${iter(depth + 1, value)}`;
-        }
-        if (type === 'changed') {
-          return `${indent}${key}: ${iter(depth + 1, value)}\n${getReplacer(spaceCount * depth, 'added')}${key}: ${iter(depth + 1, newValue)}`;
-        }
-        return `${indent}${nestedKey}: ${iter(depth + 1, (diff))}`;
       });
 
     return [

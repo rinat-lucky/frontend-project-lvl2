@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "genDiff.js - CLI",
+  "description": "genDiff.js - CLI-util",
   "main": "src/index.js",
   "type": "module",
   "scripts": {

@@ -1,52 +1,52 @@
 import isObject from 'lodash.isobject';
 
-const getChainKeys = (node) => {
-  if (!isObject(node)) {
-    return node;
+const getFormattedValue = (value) => {
+  if (typeof value === 'string') {
+    return `'${value}'`;
   }
-  if (Object.hasOwn(node, 'value')) {
-    return node.key;
+  if (isObject(value)) {
+    return '[complex value]';
   }
-  const chain = node.children.map((child) => `${node.key}.${getChainKeys(child)}`);
-  return chain;
+  return value;
 };
 
-const plain = (node) => {
-  if (!isObject(node)) {
-    return node;
-  }
+const plain = (tree) => {
+  const iter = (node, path) => {
+    if (!isObject(node)) {
+      return node;
+    }
 
-  const lines = Object
-    .entries(node)
-    .map(([, diff]) => {
-      const {
-        value, newValue, type, children,
-      } = diff;
+    const lines = Object
+      .values(node)
+      .map((diff) => {
+        const {
+          key, value, newValue, type, children,
+        } = diff;
 
-      // console.log('NODE', node);
-      console.log('DIFF', diff);
-      // console.log('KEY', key);
+        const newPath = (path !== '' ? `${path}.${key}` : `${key}`);
 
-      const currentValue = isObject(value) ? '[complex value]' : value;
+        switch (type) {
+          case 'nested':
+            return iter(children, newPath);
+          case 'added':
+            return `Property '${newPath}' was added with value: ${getFormattedValue(value)}`;
+          case 'deleted':
+            return `Property '${newPath}' was removed`;
+          case 'changed':
+            return `Property '${newPath}' was updated. From ${getFormattedValue(value)} to ${getFormattedValue(newValue)}`;
+          case 'unchanged':
+            return '';
+          default:
+            throw new Error(`Unknown type of diff: ${type}`);
+        }
+      });
 
-      if (type === 'changed') {
-        return `Property '${getChainKeys(diff)}' was updated. From ${currentValue} to ${newValue}`;
-      }
-      if (type === 'deleted') {
-        return `Property '${getChainKeys(diff)}' was removed`;
-      }
-      if (type === 'added') {
-        return `Property '${getChainKeys(diff)}' was added with value: ${currentValue}`;
-      }
-      if (type === 'nested') {
-        return plain(children);
-      }
-      return '';
-    });
+    return [...lines]
+      .filter(Boolean)
+      .join('\n');
+  };
 
-  return [
-    ...lines,
-  ].join('\n');
+  return iter(tree, '');
 };
 
 export default plain;
