@@ -1,7 +1,7 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-export default (file, format = 'stylish') => {
+export default (file, format) => {
   switch (format) {
     case 'stylish':
       return stylish(file);
@@ -10,6 +10,6 @@ export default (file, format = 'stylish') => {
     case 'json':
       return JSON.stringify(file);
     default:
-      return stylish(file);
+      throw new Error(`Unknown format: ${format}`);
   }
 };
