@@ -8,7 +8,7 @@ publish:
 	npm publish --dry-run
 
 lint:
-	npx eslint .
+	npx --format json eslint .
 
 test:
 	npm test
@@ -30,3 +30,9 @@ plain:
 
 stylish:
 	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json -f stylish
+
+json:
+	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json -f json
+
+json-str:
+	gendiff ../__fixtures__/file5.json ../__fixtures__/file6.json -f json-str

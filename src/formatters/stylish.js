@@ -48,7 +48,7 @@ export default (tree, spaceCount = 1) => {
           case 'changed':
             return `${indent}${key}: ${iter(depth + 1, value)}\n${getReplacer(spaceCount * depth, 'added')}${key}: ${iter(depth + 1, newValue)}`;
           default:
-            return `${indent}${prop}: ${iter(depth + 1, (diff))}`;
+            return `${indent}${prop}: ${iter(depth + 1, diff)}`;
         }
       });
 
