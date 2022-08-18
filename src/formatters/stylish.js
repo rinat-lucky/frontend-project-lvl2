@@ -7,17 +7,14 @@ const getReplacer = (count, value = '') => {
   const currentIndent = space.repeat(count * stepIndent);
   const currentIndentArr = currentIndent.split('');
 
-  const func = (symbol) => {
-    currentIndentArr.splice(currentIndentArr.length - 2, 1, symbol);
-    return currentIndentArr.join('');
-  };
+  const insertSymbol = (symbol) => (currentIndentArr.slice(0, currentIndentArr.length - 2).concat([symbol, ' ']).join(''));
 
   switch (value) {
     case 'deleted':
     case 'changed':
-      return func('-');
+      return insertSymbol('-');
     case 'added':
-      return func('+');
+      return insertSymbol('+');
     default:
       return currentIndentArr.join('');
   }
