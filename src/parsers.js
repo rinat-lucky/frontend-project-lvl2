@@ -8,6 +8,6 @@ export default (file, extension) => {
     case '.yaml':
       return yaml.load(file);
     default:
-      return 'Unknown format!';
+      throw new Error(`Unknown type of extension: ${extension}`);
   }
 };

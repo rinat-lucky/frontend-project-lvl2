@@ -23,12 +23,9 @@
   "dependencies": {
     "commander": "^9.4.0",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21",
     "lodash.isobject": "^3.0.2",
     "lodash.sortby": "^4.7.0",
-    "lodash.sorteduniq": "^4.2.0",
-    "lodash.union": "^4.6.0",
-    "uniq": "^1.0.1"
+    "lodash.union": "^4.6.0"
   },
   "devDependencies": {
     "@jest/globals": "^28.0.3",

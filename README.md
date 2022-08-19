@@ -1,10 +1,10 @@
 # genDiff.js (by Rinat_K)
 
-"genDiff.js" - is a CLI-program that determines the difference between two data structures
+"genDiff.js" - is a CLI-util that determines the difference between two data structures
 
 ----
 
-## Hexlet tests and linter status:
+## Tests and linter status:
 [![Actions Status](https://github.com/rinat-lucky/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/rinat-lucky/frontend-project-lvl2/actions)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/323700e9c1e0f5b11fdb/maintainability)](https://codeclimate.com/github/rinat-lucky/frontend-project-lvl2/maintainability)
@@ -25,14 +25,17 @@ make install
 
 ## Asciinema's
  
-genDiff.js (comparison JSON files)
+Comparison JSON files)
 [![asciicast](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4.png)](https://asciinema.org/a/n9BBLGHW8YjfbMy5x3i3xsXW4)
 
-genDiff.js (comparison JSON & YAML plain files in 'stylish')
+Comparison JSON & YAML plain files in 'stylish'
 [![asciicast](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedTi.png)](https://asciinema.org/a/GL1Vch3iSNQCSd46cTyQAedTi)
 
-genDiff.js (comparison JSON & YAML nested files in 'stylish')
+Comparison JSON & YAML nested files in 'stylish'
 [![asciicast](https://asciinema.org/a/0RPiGuJc3Q0GD21XWRo0LMu7C.png)](https://asciinema.org/a/0RPiGuJc3Q0GD21XWRo0LMu7C)
 
-genDiff.js (comparison JSON & YAML nested files in 'plain')
+Comparison JSON & YAML nested files in 'plain'
 [![asciicast](https://asciinema.org/a/yAOQNJQW4nkBqwNxwaA7Pkf3t.png)](https://asciinema.org/a/yAOQNJQW4nkBqwNxwaA7Pkf3t)
+
+Comparison JSON & YAML nested files in 'json'
+[![asciicast](https://asciinema.org/a/Xw0mqF66hUZicSty5GRGswwlQ.png)](https://asciinema.org/a/Xw0mqF66hUZicSty5GRGswwlQ)

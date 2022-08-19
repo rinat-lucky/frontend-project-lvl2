@@ -2,12 +2,15 @@ import isObject from 'lodash.isobject';
 
 const stepIndent = 4;
 
-const getReplacer = (count, value = '') => {
+const getReplacer = (count, value) => {
   const space = ' ';
   const currentIndent = space.repeat(count * stepIndent);
   const currentIndentArr = currentIndent.split('');
 
-  const insertSymbol = (symbol) => (currentIndentArr.slice(0, currentIndentArr.length - 2).concat([symbol, ' ']).join(''));
+  const insertSymbol = (symbol) => (currentIndentArr
+    .slice(0, currentIndentArr.length - 2)
+    .concat([symbol, ' '])
+    .join(''));
 
   switch (value) {
     case 'deleted':
