@@ -1,10 +1,10 @@
-import isObject from 'lodash.isobject';
+import _ from 'lodash';
 
 const getFormattedValue = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   }
-  if (isObject(value)) {
+  if (_.isObject(value)) {
     return '[complex value]';
   }
   return value;
@@ -12,7 +12,7 @@ const getFormattedValue = (value) => {
 
 const plain = (tree) => {
   const iter = (node, path) => {
-    if (!isObject(node)) {
+    if (!_.isObject(node)) {
       return node;
     }
 

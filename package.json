@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "genDiff.js - CLI-util",
+  "description": "genDiff.js - is a CLI-util that determines the difference between two data structures",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -23,12 +23,9 @@
   "dependencies": {
     "commander": "^9.4.0",
     "js-yaml": "^4.1.0",
-    "lodash.isobject": "^3.0.2",
-    "lodash.sortby": "^4.7.0",
-    "lodash.union": "^4.6.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@jest/globals": "^28.0.3",
     "eslint": "^8.20.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",

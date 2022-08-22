@@ -1,4 +1,4 @@
-import isObject from 'lodash.isobject';
+import _ from 'lodash';
 
 const stepIndent = 4;
 
@@ -25,7 +25,7 @@ const getReplacer = (count, value) => {
 
 export default (tree, spaceCount = 1) => {
   const iter = (depth, node) => {
-    if (!isObject(node)) {
+    if (!_.isObject(node)) {
       return `${node}`;
     }
     const bracketEnd = getReplacer(spaceCount * (depth - 1));

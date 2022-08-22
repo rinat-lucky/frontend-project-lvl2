@@ -1,12 +1,12 @@
 import { readFileSync } from 'fs';
-import { cwd } from 'process';
 import path from 'path';
 import buildDiff from './buildDiff.js';
 import parse from './parsers.js';
 import getDiff from './formatters/index.js';
 
-const readFile = (filepath) => readFileSync(path.resolve(`${cwd}`, filepath), 'utf-8');
-const getExtension = (filepath) => path.extname(filepath);
+const getFixturePath = (filepath) => path.resolve(`${process.cwd}`, filepath);
+const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8');
+const getExtension = (filepath) => path.extname(filepath).slice(1);
 
 export default (filepath1, filepath2, format = 'stylish') => {
   const obj1 = parse(readFile(filepath1), getExtension(filepath1));
