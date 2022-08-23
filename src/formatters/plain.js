@@ -16,16 +16,14 @@ const plain = (tree) => {
       return node;
     }
 
-    const lines = Object
-      .values(node)
+    const lines = node
       .map((diff) => {
         const {
-          key, value, newValue, type, children,
+          key, value, secondValue, children,
         } = diff;
-
         const newPath = (path !== '' ? `${path}.${key}` : `${key}`);
 
-        switch (type) {
+        switch (diff.type) {
           case 'nested':
             return iter(children, newPath);
           case 'added':
@@ -33,11 +31,11 @@ const plain = (tree) => {
           case 'deleted':
             return `Property '${newPath}' was removed`;
           case 'changed':
-            return `Property '${newPath}' was updated. From ${getFormattedValue(value)} to ${getFormattedValue(newValue)}`;
+            return `Property '${newPath}' was updated. From ${getFormattedValue(value)} to ${getFormattedValue(secondValue)}`;
           case 'unchanged':
-            return '';
+            return null;
           default:
-            throw new Error(`Unknown type of diff: ${type}`);
+            throw new Error(`Unknown type of diff: ${diff.type}`);
         }
       });
 

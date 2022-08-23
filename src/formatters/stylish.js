@@ -1,61 +1,43 @@
 import _ from 'lodash';
 
 const stepIndent = 4;
+const getIndent = (count) => ' '.repeat(count * stepIndent);
 
-const getReplacer = (count, value) => {
-  const space = ' ';
-  const currentIndent = space.repeat(count * stepIndent);
-  const currentIndentArr = currentIndent.split('');
-
-  const insertSymbol = (symbol) => (currentIndentArr
-    .slice(0, currentIndentArr.length - 2)
-    .concat([symbol, ' '])
-    .join(''));
-
-  switch (value) {
-    case 'deleted':
-    case 'changed':
-      return insertSymbol('-');
-    case 'added':
-      return insertSymbol('+');
-    default:
-      return currentIndentArr.join('');
-  }
-};
-
-export default (tree, spaceCount = 1) => {
+export default (tree) => {
   const iter = (depth, node) => {
     if (!_.isObject(node)) {
-      return `${node}`;
+      return node;
     }
-    const bracketEnd = getReplacer(spaceCount * (depth - 1));
+    const bracketEndIndent = getIndent(depth - 1);
 
     const lines = Object
       .entries(node)
       .map(([prop, diff]) => {
         const {
-          key, value, newValue, type, children,
+          key, value, secondValue, children,
         } = diff;
-        const indent = getReplacer(spaceCount * depth, type);
+        const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
 
-        switch (type) {
+        switch (diff.type) {
           case 'nested':
-            return `${indent}${key}: ${iter(depth + 1, children)}`;
+            return `${indent}  ${key}: ${iter(depth + 1, children)}`;
           case 'added':
+            return `${indent}+ ${key}: ${iter(depth + 1, value)}`;
           case 'deleted':
+            return `${indent}- ${key}: ${iter(depth + 1, value)}`;
           case 'unchanged':
-            return `${indent}${key}: ${iter(depth + 1, value)}`;
+            return `${indent}  ${key}: ${iter(depth + 1, value)}`;
           case 'changed':
-            return `${indent}${key}: ${iter(depth + 1, value)}\n${getReplacer(spaceCount * depth, 'added')}${key}: ${iter(depth + 1, newValue)}`;
+            return `${indent}- ${key}: ${iter(depth + 1, value)}\n${indent}+ ${key}: ${iter(depth + 1, secondValue)}`;
           default:
-            return `${indent}${prop}: ${iter(depth + 1, diff)}`;
+            return `${indent}  ${prop}: ${iter(depth + 1, diff)}`;
         }
       });
 
     return [
       '{',
       ...lines,
-      `${bracketEnd}}`,
+      `${bracketEndIndent}}`,
     ].join('\n');
   };
 
