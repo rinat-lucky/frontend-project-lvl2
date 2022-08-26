@@ -12,10 +12,6 @@ const getFormattedValue = (value) => {
 
 const plain = (tree) => {
   const iter = (node, path) => {
-    if (!_.isObject(node)) {
-      return node;
-    }
-
     const lines = node
       .map((diff) => {
         const {

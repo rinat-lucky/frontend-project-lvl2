@@ -1,15 +1,13 @@
 import yaml from 'js-yaml';
 
-export default (data) => {
-  const { content, extension } = data;
-
-  switch (extension) {
+export default (data, format) => {
+  switch (format) {
     case 'json':
-      return JSON.parse(content);
+      return JSON.parse(data);
     case 'yml':
     case 'yaml':
-      return yaml.load(content);
+      return yaml.load(data);
     default:
-      throw new Error(`Unknown type of extension: ${extension}`);
+      throw new Error(`Unknown type of format: ${format}`);
   }
 };

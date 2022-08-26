@@ -5,32 +5,36 @@ const getIndent = (count) => ' '.repeat(count * stepIndent);
 
 export default (tree) => {
   const iter = (depth, node) => {
-    if (!_.isObject(node)) {
-      return node;
-    }
+    const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
     const bracketEndIndent = getIndent(depth - 1);
 
     const lines = Object
       .entries(node)
-      .map(([prop, diff]) => {
+      .map(([property, diff]) => {
         const {
           key, value, secondValue, children,
         } = diff;
-        const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
+
+        const getValue = (data) => {
+          if (!_.isObject(data)) {
+            return data;
+          }
+          return iter(depth + 1, data);
+        };
 
         switch (diff.type) {
           case 'nested':
-            return `${indent}  ${key}: ${iter(depth + 1, children)}`;
+            return `${indent}  ${key}: ${getValue(children)}`;
           case 'added':
-            return `${indent}+ ${key}: ${iter(depth + 1, value)}`;
+            return `${indent}+ ${key}: ${getValue(value)}`;
           case 'deleted':
-            return `${indent}- ${key}: ${iter(depth + 1, value)}`;
+            return `${indent}- ${key}: ${getValue(value)}`;
           case 'unchanged':
-            return `${indent}  ${key}: ${iter(depth + 1, value)}`;
+            return `${indent}  ${key}: ${getValue(value)}`;
           case 'changed':
-            return `${indent}- ${key}: ${iter(depth + 1, value)}\n${indent}+ ${key}: ${iter(depth + 1, secondValue)}`;
+            return `${indent}- ${key}: ${getValue(value)}\n${indent}+ ${key}: ${getValue(secondValue)}`;
           default:
-            return `${indent}  ${prop}: ${iter(depth + 1, diff)}`;
+            return `${indent}  ${property}: ${getValue(diff)}`;
         }
       });
 
