@@ -9,10 +9,25 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8');
 
 test.each([
-  [genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'stylish'), readFile('result_nested_json.txt').trim()],
-  [genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml')), readFile('result_nested_yml.txt').trim()],
-  [genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'plain'), readFile('result_text_JSON.txt').trim()],
-  [genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain'), readFile('result_text_YML.txt').trim()],
-])('genDiff-tests(%#)', (actual, expected) => {
-  expect(actual).toBe(expected);
+  ['file1.json', 'file2.json', 'stylish'],
+  ['file1.yml', 'file2.yml'],
+  ['file1.json', 'file2.json', 'plain'],
+  ['file1.yml', 'file2.yml', 'plain'],
+  ['file1.json', 'file2.json', 'json'],
+  ['file1.yml', 'file2.yml', 'json'],
+])('genDiff-tests(%#)', (file1, file2, format = 'stylish') => {
+  const actual = genDiff(getFixturePath(file1), getFixturePath(file2), format);
+  const expected = (formatter) => {
+    switch (formatter) {
+      case 'stylish':
+        return readFile('result_stylish.txt').trim();
+      case 'plain':
+        return readFile('result_plain.txt').trim();
+      case 'json':
+        return readFile('result_json.txt').trim();
+      default:
+        throw new Error(`Unknown type of format: ${formatter}`);
+    }
+  };
+  expect(actual).toBe(expected(format));
 });

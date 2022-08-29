@@ -12,7 +12,7 @@ export default (tree) => {
       .entries(node)
       .map(([property, diff]) => {
         const {
-          key, value, secondValue, children,
+          key, value1, value2, children,
         } = diff;
 
         const getValue = (data) => {
@@ -26,13 +26,13 @@ export default (tree) => {
           case 'nested':
             return `${indent}  ${key}: ${getValue(children)}`;
           case 'added':
-            return `${indent}+ ${key}: ${getValue(value)}`;
+            return `${indent}+ ${key}: ${getValue(value2)}`;
           case 'deleted':
-            return `${indent}- ${key}: ${getValue(value)}`;
+            return `${indent}- ${key}: ${getValue(value1)}`;
           case 'unchanged':
-            return `${indent}  ${key}: ${getValue(value)}`;
+            return `${indent}  ${key}: ${getValue(value1)}`;
           case 'changed':
-            return `${indent}- ${key}: ${getValue(value)}\n${indent}+ ${key}: ${getValue(secondValue)}`;
+            return `${indent}- ${key}: ${getValue(value1)}\n${indent}+ ${key}: ${getValue(value2)}`;
           default:
             return `${indent}  ${property}: ${getValue(diff)}`;
         }

@@ -15,7 +15,7 @@ const plain = (tree) => {
     const lines = node
       .map((diff) => {
         const {
-          key, value, secondValue, children,
+          key, value1, value2, children,
         } = diff;
         const newPath = (path !== '' ? `${path}.${key}` : `${key}`);
 
@@ -23,11 +23,11 @@ const plain = (tree) => {
           case 'nested':
             return iter(children, newPath);
           case 'added':
-            return `Property '${newPath}' was added with value: ${getFormattedValue(value)}`;
+            return `Property '${newPath}' was added with value: ${getFormattedValue(value2)}`;
           case 'deleted':
             return `Property '${newPath}' was removed`;
           case 'changed':
-            return `Property '${newPath}' was updated. From ${getFormattedValue(value)} to ${getFormattedValue(secondValue)}`;
+            return `Property '${newPath}' was updated. From ${getFormattedValue(value1)} to ${getFormattedValue(value2)}`;
           case 'unchanged':
             return null;
           default:

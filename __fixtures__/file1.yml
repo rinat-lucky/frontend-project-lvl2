@@ -1,17 +1,18 @@
-common: 
+---
+common:
   setting1: Value 1
   setting2: 200
   setting3: true
-  setting6: 
+  setting6:
     key: value
-    doge: 
-      wow: null
-group1: 
+    doge:
+      wow: ''
+group1:
   baz: bas
   foo: bar
-  nest: 
-    key: value  
-group2: 
+  nest:
+    key: value
+group2:
   abc: 12345
-  deep: 
+  deep:
     id: 45
