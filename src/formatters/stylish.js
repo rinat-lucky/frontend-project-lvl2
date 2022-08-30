@@ -11,10 +11,6 @@ export default (tree) => {
     const lines = Object
       .entries(node)
       .map(([property, diff]) => {
-        const {
-          key, value1, value2, children,
-        } = diff;
-
         const getValue = (data) => {
           if (!_.isObject(data)) {
             return data;
@@ -24,15 +20,15 @@ export default (tree) => {
 
         switch (diff.type) {
           case 'nested':
-            return `${indent}  ${key}: ${getValue(children)}`;
+            return `${indent}  ${diff.key}: ${getValue(diff.children)}`;
           case 'added':
-            return `${indent}+ ${key}: ${getValue(value2)}`;
+            return `${indent}+ ${diff.key}: ${getValue(diff.value2)}`;
           case 'deleted':
-            return `${indent}- ${key}: ${getValue(value1)}`;
+            return `${indent}- ${diff.key}: ${getValue(diff.value1)}`;
           case 'unchanged':
-            return `${indent}  ${key}: ${getValue(value1)}`;
+            return `${indent}  ${diff.key}: ${getValue(diff.value1)}`;
           case 'changed':
-            return `${indent}- ${key}: ${getValue(value1)}\n${indent}+ ${key}: ${getValue(value2)}`;
+            return `${indent}- ${diff.key}: ${getValue(diff.value1)}\n${indent}+ ${diff.key}: ${getValue(diff.value2)}`;
           default:
             return `${indent}  ${property}: ${getValue(diff)}`;
         }

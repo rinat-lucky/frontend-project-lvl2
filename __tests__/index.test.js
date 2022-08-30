@@ -6,7 +6,7 @@ import genDiff from '../src/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8');
+const readFile = (filepath) => readFileSync(getFixturePath(filepath), 'utf-8').trim();
 
 test.each([
   ['file1.json', 'file2.json', 'stylish'],
@@ -20,11 +20,11 @@ test.each([
   const expected = (formatter) => {
     switch (formatter) {
       case 'stylish':
-        return readFile('result_stylish.txt').trim();
+        return readFile('result_stylish.txt');
       case 'plain':
-        return readFile('result_plain.txt').trim();
+        return readFile('result_plain.txt');
       case 'json':
-        return readFile('result_json.txt').trim();
+        return readFile('result_json.txt');
       default:
         throw new Error(`Unknown type of format: ${formatter}`);
     }

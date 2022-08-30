@@ -36,3 +36,5 @@ Comparison JSON & YAML nested files in 'plain'
 
 Comparison JSON & YAML nested files in 'json'
 [![asciicast](https://asciinema.org/a/Xw0mqF66hUZicSty5GRGswwlQ.png)](https://asciinema.org/a/Xw0mqF66hUZicSty5GRGswwlQ)
+
+<!-- gendiff __fixtures__/file1.json __fixtures__/file2.json -->

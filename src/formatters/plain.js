@@ -10,24 +10,21 @@ const getFormattedValue = (value) => {
   return value;
 };
 
-const plain = (tree) => {
+export default (tree) => {
   const iter = (node, path) => {
     const lines = node
       .map((diff) => {
-        const {
-          key, value1, value2, children,
-        } = diff;
-        const newPath = (path !== '' ? `${path}.${key}` : `${key}`);
+        const keyPath = (path === '' ? `${diff.key}` : `${path}.${diff.key}`);
 
         switch (diff.type) {
           case 'nested':
-            return iter(children, newPath);
+            return iter(diff.children, keyPath);
           case 'added':
-            return `Property '${newPath}' was added with value: ${getFormattedValue(value2)}`;
+            return `Property '${keyPath}' was added with value: ${getFormattedValue(diff.value2)}`;
           case 'deleted':
-            return `Property '${newPath}' was removed`;
+            return `Property '${keyPath}' was removed`;
           case 'changed':
-            return `Property '${newPath}' was updated. From ${getFormattedValue(value1)} to ${getFormattedValue(value2)}`;
+            return `Property '${keyPath}' was updated. From ${getFormattedValue(diff.value1)} to ${getFormattedValue(diff.value2)}`;
           case 'unchanged':
             return null;
           default:
@@ -42,5 +39,3 @@ const plain = (tree) => {
 
   return iter(tree, '');
 };
-
-export default plain;
