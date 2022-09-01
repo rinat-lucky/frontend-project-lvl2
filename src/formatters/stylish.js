@@ -3,43 +3,50 @@ import _ from 'lodash';
 const stepIndent = 4;
 const getIndent = (count) => ' '.repeat(count * stepIndent);
 
-export default (tree) => {
-  const iter = (depth, node) => {
-    const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
-    const bracketEndIndent = getIndent(depth - 1);
+const getValue = (node, depth) => {
+  if (!_.isObject(node)) {
+    return node;
+  }
+  const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
+  const bracketEndIndent = getIndent(depth - 1);
+  const lines = Object.entries(node).map(([key, value]) => `${indent}  ${key}: ${getValue(value, depth + 1)}`);
 
-    const lines = Object
-      .entries(node)
-      .map(([property, diff]) => {
-        const getValue = (data) => {
-          if (!_.isObject(data)) {
-            return data;
-          }
-          return iter(depth + 1, data);
-        };
-
-        switch (diff.type) {
-          case 'nested':
-            return `${indent}  ${diff.key}: ${getValue(diff.children)}`;
-          case 'added':
-            return `${indent}+ ${diff.key}: ${getValue(diff.value2)}`;
-          case 'deleted':
-            return `${indent}- ${diff.key}: ${getValue(diff.value1)}`;
-          case 'unchanged':
-            return `${indent}  ${diff.key}: ${getValue(diff.value1)}`;
-          case 'changed':
-            return `${indent}- ${diff.key}: ${getValue(diff.value1)}\n${indent}+ ${diff.key}: ${getValue(diff.value2)}`;
-          default:
-            return `${indent}  ${property}: ${getValue(diff)}`;
-        }
-      });
-
-    return [
-      '{',
-      ...lines,
-      `${bracketEndIndent}}`,
-    ].join('\n');
-  };
-
-  return iter(1, tree);
+  return [
+    '{',
+    ...lines,
+    `${bracketEndIndent}}`,
+  ].join('\n');
 };
+
+const stylish = (data, depth = 1) => {
+  const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
+  const bracketEndIndent = getIndent(depth - 1);
+
+  const lines = data.flatMap((diff) => {
+    switch (diff.type) {
+      case 'nested':
+        return `${indent}  ${diff.key}: ${stylish(diff.children, depth + 1)}`;
+      case 'added':
+        return `${indent}+ ${diff.key}: ${getValue(diff.value2, depth + 1)}`;
+      case 'deleted':
+        return `${indent}- ${diff.key}: ${getValue(diff.value1, depth + 1)}`;
+      case 'unchanged':
+        return `${indent}  ${diff.key}: ${getValue(diff.value1, depth + 1)}`;
+      case 'changed':
+        return [
+          `${indent}- ${diff.key}: ${getValue(diff.value1, depth + 1)}`,
+          `${indent}+ ${diff.key}: ${getValue(diff.value2, depth + 1)}`,
+        ];
+      default:
+        throw new Error(`Unknown type of data: ${diff.type}`);
+    }
+  });
+
+  return [
+    '{',
+    ...lines,
+    `${bracketEndIndent}}`,
+  ].join('\n');
+};
+
+export default stylish;
