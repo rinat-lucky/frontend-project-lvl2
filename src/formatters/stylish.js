@@ -7,9 +7,8 @@ const getValue = (node, depth) => {
   if (!_.isObject(node)) {
     return node;
   }
-  const indent = getIndent(depth).slice(0, getIndent(depth) - 2);
   const bracketEndIndent = getIndent(depth - 1);
-  const lines = Object.entries(node).map(([key, value]) => `${indent}  ${key}: ${getValue(value, depth + 1)}`);
+  const lines = Object.entries(node).map(([key, value]) => `${getIndent(depth)}${key}: ${getValue(value, depth + 1)}`);
 
   return [
     '{',
